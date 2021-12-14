@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main (String[] args) {
-
         int startStop = 1;
         int nbPawn = 4;
         int isUnique = 1;
@@ -16,11 +15,11 @@ public class Main {
 
         Scanner input = new Scanner(System.in);
         System.out.println("Une nouvelle partie s'est crée...");
-        System.out.println("pressez 1 pour jouer, 0 pour quitter");
+        System.out.println("pressez (1) pour jouer, (0) pour quitter");
         startStop = input.nextInt();
-
+        GameBoard gameBoardOne = new GameBoard(GameBoard.generation_combinaison(4, true), 4);
         // jeu
-        
+
         while (startStop == 1) {
 
             // Initialisation game board
@@ -38,17 +37,21 @@ public class Main {
                     "le nombre de pions à été mis à 4 par défaut"
                 );
             }
-
-            GameBoard gameBoardOne = new GameBoard(GameBoard.generation_combinaison(nbPawn, true), nbPawn);
+            gameBoardOne.setNbSlot(nbPawn);
             System.out.println(
                 "Veuillez maintenant sélectionner si les pions de la combinaisons cachée doivent être unique\n"+
                 "(1) sinon (0)");
             isUnique = input.nextInt();
 
             if (isUnique == 0) {
-                gameBoardOne = new GameBoard(GameBoard.generation_combinaison(nbPawn, false), nbPawn);
+                System.out.println("les pions sont générés aléatoirement...");
+                gameBoardOne.setHiddenCombinationTrue(GameBoard.generation_combinaison(gameBoardOne.getNbSlot(), false),false);
+                System.out.println("les pions sont générés aléatoirement...");
             } else if (isUnique == 1) {
+            	gameBoardOne.setHiddenCombinationTrue(GameBoard.generation_combinaison(gameBoardOne.getNbSlot(), true),true);
+                System.out.println("les pions sont générés aléatoirement sans doublons...");
             } else {
+            	gameBoardOne.setHiddenCombinationTrue(GameBoard.generation_combinaison(gameBoardOne.getNbSlot(), true),true);
                 System.out.println("Erreur de saisie, les pions seront uniques par défault");
             }
             System.out.println(gameBoardOne.getHiddenCombinationString());
@@ -56,14 +59,14 @@ public class Main {
                 gameBoardOne.setNbShot(gameBoardOne.getNbShot() + 1);
                 System.out.println("il vous reste : " + (13 - gameBoardOne.getNbShot()) + " éssais...");
                 System.out.println("Entrez votre selection de pions :");
-                gameBoardOne.setCurrentCombination(gameBoardOne.creation_table_utilisateur(nbPawn));
-                tableResult = gameBoardOne.comparaison_combinaison(gameBoardOne.getHiddenCombination(), gameBoardOne.getCurrentCombination());
+                gameBoardOne.setCurrentCombination(GameBoard.creation_table_utilisateur(nbPawn));
+                tableResult = GameBoard.comparaison_combinaison(gameBoardOne.getHiddenCombination(), gameBoardOne.getCurrentCombination());
                 if (tableResult[0] == 4) {
                     gameBoardOne.setResolved(true);
                 } else {
                     System.out.println(
                         "Vous avez " + 
-                        tableResult[0] + " pions bien positionnés et de bonne couleur " + 
+                        tableResult[0] + " pions bien positionnés et de bonne couleur " + //bug
                         tableResult[1] + " pions de bonne couleur."
                     );
                 }
@@ -83,9 +86,9 @@ public class Main {
                 gameBoardOne.setNbCoupsMoyen((gameBoardOne.getNbShot() + gameBoardOne.getNbCoupsMoyen() * (gameBoardOne.getNbVictoire() - 1)) / gameBoardOne.getNbVictoire());
                 gameBoardOne.setResolved(false);
             }
-            gameBoardOne.setNbShot(0); //set
-            gameBoardOne.setNbTotalParties(gameBoardOne.getNbTotalParties()+1);
-            gameBoardOne.setNbDefaite(gameBoardOne.getNbTotalParties()-gameBoardOne.getNbVictoire());
+            gameBoardOne.setNbShot(0);
+            gameBoardOne.setNbTotalParties(gameBoardOne.getNbTotalParties() + 1);
+            gameBoardOne.setNbDefaite(gameBoardOne.getNbTotalParties() - gameBoardOne.getNbVictoire());
 
             System.out.println("pressez 1 pour rejouer, 0 pour quitter");
             startStop= input.nextInt();

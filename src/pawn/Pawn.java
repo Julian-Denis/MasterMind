@@ -1,7 +1,7 @@
 package pawn;
 
 public class Pawn {
-    // Propriétés
+   /* // Propriétés
     Color couleur;
     int position;
 
@@ -26,6 +26,6 @@ public class Pawn {
     public void setPosition (int pos) {
         this.position = pos;
     }
-
+*/
     // méthodes
 }

@@ -9,16 +9,16 @@ public class GameBoard {
     // Propriétés
 	
     protected static int NB_ROUND = 12; // nb manches dans une partie
-    int nbSlot; // nb pions dans un arrangement
-    int nbShot = 0; // nb éssais pour deviner l'arrangement caché
-    int nbVictoire; // nb victoires
-    int nbDefaite; // nb defaites
-    int nbTotalParties; // nb total de parties
-    double nbCoupsMoyen = 0; // nb coup moyen pour gagner
-    ArrayList<Integer> hiddenCombination; // combinaison cachée
-    ArrayList<Integer> currentCombination; // combinaison courante utilisateur
-    int[] tentatives; // combinaisons essayées
-    boolean isResolved = false; // est ce que la combinaison est trouvée
+    private int nbSlot; // nb pions dans un arrangement
+    private int nbShot = 0; // nb éssais pour deviner l'arrangement caché
+    private int nbVictoire = 0; // nb victoires
+    private int nbDefaite = 0; // nb defaites
+    private int nbTotalParties = 0; // nb total de parties
+    private double nbCoupsMoyen = 0; // nb coup moyen pour gagner
+    private ArrayList<Integer> hiddenCombination; // combinaison cachée
+    private ArrayList<Integer> currentCombination; // combinaison courante utilisateur
+    private int[] tentatives; // combinaisons essayées
+    private boolean isResolved = false; // est ce que la combinaison est trouvée
 
     // Constructeur
     
@@ -140,21 +140,21 @@ public class GameBoard {
         return s;
     }
 
-    public static String affCombiPawn (ArrayList<Pawn> tab) {
+    /*public static String affCombiPawn (ArrayList<Pawn> tab) {
         String s = "[";
         for (int i = 0; i < tab.size() - 1; i ++) {
             s += String.valueOf(tab.get(i).couleur) + ", ";
         }
         s += String.valueOf(tab.get(tab.size()-1).couleur) + "]"; 
         return s;
-    }
+    }*/
 
     public static ArrayList<Integer> generation_combinaison (int nb_pions, boolean combinaison_sans_double) {	
         ArrayList<Integer> arrCombinaisonAleatoire = new ArrayList<Integer>();
         if (nb_pions>3 && nb_pions<9) {
             for (int i = 0; i < nb_pions; i++) {
                 arrCombinaisonAleatoire.add(i, (int)Math.floor((Math.random()*(8-1+1))+1));
-                if (combinaison_sans_double) {
+                if (combinaison_sans_double == true) {
                     for (int j = 0; j < i; j++) {
                         if (arrCombinaisonAleatoire.get(j) == arrCombinaisonAleatoire.get(i)) {
                             arrCombinaisonAleatoire.remove(i);
@@ -188,7 +188,7 @@ public class GameBoard {
                 for (int j = 0; j < 4; j ++) {
                     if (combi_un.get(i) == combi_deux.get(j)) {
                         presenceCounter += 1;
-                        break; // ?
+                        break;
                     }
                 }
             }
