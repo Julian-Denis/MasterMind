@@ -53,13 +53,13 @@ public class Main {
             }
             System.out.println(gameBoardOne.getHiddenCombinationString());
             while (gameBoardOne.isResolved() == false && gameBoardOne.getNbShot() < 12) {
-                gameBoardOne.nbShot+=1;//set
+                gameBoardOne.setNbShot(gameBoardOne.getNbShot() + 1);
                 System.out.println("il vous reste : " + (13 - gameBoardOne.getNbShot()) + " éssais...");
                 System.out.println("Entrez votre selection de pions :");
                 gameBoardOne.setCurrentCombination(gameBoardOne.creation_table_utilisateur(nbPawn));
-                tableResult = gameBoardOne.comparaison_combinaison(gameBoardOne.getHiddenCombination, gameBoardOne.currentCombination);
+                tableResult = gameBoardOne.comparaison_combinaison(gameBoardOne.getHiddenCombination(), gameBoardOne.getCurrentCombination());
                 if (tableResult[0] == 4) {
-                    gameBoardOne.isResolved = true;//set
+                    gameBoardOne.setResolved(true);
                 } else {
                     System.out.println(
                         "Vous avez " + 
@@ -69,23 +69,23 @@ public class Main {
                 }
             }
 
-            if (gameBoardOne.isResolved == false) {
+            if (gameBoardOne.isResolved() == false) {
                 System.out.println(
                     "vous venez de perdre la partie, la combinaison cachée était :" +
-                    gameBoardOne.affCombiInt(gameBoardOne.hiddenCombination)
+                    gameBoardOne.affCombiInt(gameBoardOne.getHiddenCombination())
                 );
             } else {
                 System.out.println(
                     "Vous venez de trouver la combinaison cachée : " +
-                    gameBoardOne.affCombiInt(gameBoardOne.hiddenCombination)
+                    gameBoardOne.affCombiInt(gameBoardOne.getHiddenCombination())
                 );
-                gameBoardOne.nbVictoire +=1;//set
-                gameBoardOne.nbCoupsMoyen = (gameBoardOne.nbShot + gameBoardOne.nbCoupsMoyen * (gameBoardOne.nbVictoire - 1)) / gameBoardOne.nbVictoire;//set get
-                gameBoardOne.isResolved = false;
+                gameBoardOne.setNbVictoire(gameBoardOne.getNbVictoire() + 1);
+                gameBoardOne.setNbCoupsMoyen((gameBoardOne.getNbShot() + gameBoardOne.getNbCoupsMoyen() * (gameBoardOne.getNbVictoire() - 1)) / gameBoardOne.getNbVictoire());
+                gameBoardOne.setResolved(false);
             }
-            gameBoardOne.nbShot = 0; //set
-            gameBoardOne.nbTotalParties+=1; //set
-            gameBoardOne.nbDefaite=gameBoardOne.nbTotalParties-gameBoardOne.nbDefaite; //set/get
+            gameBoardOne.setNbShot(0); //set
+            gameBoardOne.setNbTotalParties(gameBoardOne.getNbTotalParties()+1);
+            gameBoardOne.setNbDefaite(gameBoardOne.getNbTotalParties()-gameBoardOne.getNbVictoire());
 
             System.out.println("pressez 1 pour rejouer, 0 pour quitter");
             startStop= input.nextInt();
@@ -93,10 +93,10 @@ public class Main {
             if (startStop == 0) {
                 System.out.println(
                     "Merci d'avoir joué, votre résultat est le suivant :\n" +
-                    gameBoardOne.nbVictoire + " parties gagnées " +
-                    " sur " + gameBoardOne.nbTotalParties +
+                    gameBoardOne.getNbVictoire() + " parties gagnées " +
+                    " sur " + gameBoardOne.getNbTotalParties() +
                     " parties jouées.\n" + 
-                    "Et en moyenne " + gameBoardOne.nbCoupsMoyen +
+                    "Et en moyenne " + gameBoardOne.getNbCoupsMoyen() +
                     " coups pour résoudre une partie"
                 );
             }
