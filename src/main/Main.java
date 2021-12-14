@@ -52,12 +52,12 @@ public class Main {
                 System.out.println("Erreur de saisie, les pions seront uniques par défault");
             }
             System.out.println(gameBoardOne.getHiddenCombinationString());
-            while (gameBoardOne.isResolved == false && gameBoardOne.nbShot < 12) {
+            while (gameBoardOne.isResolved() == false && gameBoardOne.getNbShot() < 12) {
                 gameBoardOne.nbShot+=1;//set
-                System.out.println("il vous reste : " + (13 - gameBoardOne.nbShot) + " éssais...");
+                System.out.println("il vous reste : " + (13 - gameBoardOne.getNbShot()) + " éssais...");
                 System.out.println("Entrez votre selection de pions :");
                 gameBoardOne.setCurrentCombination(gameBoardOne.creation_table_utilisateur(nbPawn));
-                tableResult = gameBoardOne.comparaison_combinaison(gameBoardOne.hiddenCombination, gameBoardOne.currentCombination);
+                tableResult = gameBoardOne.comparaison_combinaison(gameBoardOne.getHiddenCombination, gameBoardOne.currentCombination);
                 if (tableResult[0] == 4) {
                     gameBoardOne.isResolved = true;//set
                 } else {

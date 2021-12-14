@@ -2,86 +2,136 @@ package board;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import pawn.Pawn;
 
 public class GameBoard {
+	
     // Propriétés
-    protected static int NB_ROUND = 12;
-
-    // nombre de pions puis de tentatives
-    int nbSlot;
-    int nbShot = 0;
-
-    // combinaison cachée et combinaison courante user
-    ArrayList<Integer> hiddenCombination;
-    ArrayList<Integer> currentCombination;
-
-    // combinaison essayées
-    int[] tentatives;
-
-    // est ce que le joueur à réussi
-    boolean isResolved = false;
-
-    // statistique de partie
-    // nb victoire / defaite / nb total de parties / nb coup moyen pour la victoire
-    int nbVictoire;
-    int nbDefaite;
-    int nbTotalParties;
-    double nbCoupsMoyen = 0;
+	
+    protected static int NB_ROUND = 12; // nb manches dans une partie
+    int nbSlot; // nb pions dans un arrangement
+    int nbShot = 0; // nb éssais pour deviner l'arrangement caché
+    int nbVictoire; // nb victoires
+    int nbDefaite; // nb defaites
+    int nbTotalParties; // nb total de parties
+    double nbCoupsMoyen = 0; // nb coup moyen pour gagner
+    ArrayList<Integer> hiddenCombination; // combinaison cachée
+    ArrayList<Integer> currentCombination; // combinaison courante utilisateur
+    int[] tentatives; // combinaisons essayées
+    boolean isResolved = false; // est ce que la combinaison est trouvée
 
     // Constructeur
+    
     public GameBoard (ArrayList<Integer> combi, int nbSlot) {
         this.hiddenCombination = combi;
         this.nbSlot = nbSlot;
     }
 
-    // getter
-    public static int getNbRound() {
-        return NB_ROUND;
-    }
-    public int getNbSolt() {
-        return this.nbSlot;
-    }
-    public int getNbShot() {
-        return this.nbShot;
-    }
-    public ArrayList<Integer> getHiddenCombination() {
-        return this.hiddenCombination;
-    }
+    // Getters/Setter
+    
+    public static int getNB_ROUND() {
+		return NB_ROUND;
+	}
+
+	public static void setNB_ROUND(int nB_ROUND) {
+		NB_ROUND = nB_ROUND;
+	}
+
+	public int getNbSlot() {
+		return nbSlot;
+	}
+
+	public void setNbSlot(int nbSlot) {
+		this.nbSlot = nbSlot;
+	}
+
+	public int getNbShot() {
+		return nbShot;
+	}
+
+	public void setNbShot(int nbShot) {
+		this.nbShot = nbShot;
+	}
+
+	public int getNbVictoire() {
+		return nbVictoire;
+	}
+
+	public void setNbVictoire(int nbVictoire) {
+		this.nbVictoire = nbVictoire;
+	}
+
+	public int getNbDefaite() {
+		return nbDefaite;
+	}
+
+	public void setNbDefaite(int nbDefaite) {
+		this.nbDefaite = nbDefaite;
+	}
+
+	public int getNbTotalParties() {
+		return nbTotalParties;
+	}
+
+	public void setNbTotalParties(int nbTotalParties) {
+		this.nbTotalParties = nbTotalParties;
+	}
+
+	public double getNbCoupsMoyen() {
+		return nbCoupsMoyen;
+	}
+
+	public void setNbCoupsMoyen(double nbCoupsMoyen) {
+		this.nbCoupsMoyen = nbCoupsMoyen;
+	}
+
+	public ArrayList<Integer> getHiddenCombination() {
+		return hiddenCombination;
+	}
+
     public String getHiddenCombinationString() {
         return affCombiInt(this.hiddenCombination);
     }
-    public int[] getTentatives() {
-        return this.tentatives;
-    }
-    public boolean getIsResolved () {
-        return this.isResolved;
-    }
 
-    // setter
-    public void setNbSolt(int nb) {
-        this.nbSlot = nb;
-    }
-    public void getNbShot(int nb) {
-        this.nbShot = nb;
-    }
-    public void setHiddenCombination(ArrayList<Integer> combi, boolean isAleatoire) {
+	public void setHiddenCombination(ArrayList<Integer> hiddenCombination) {
+		this.hiddenCombination = hiddenCombination;
+	}
+
+    public void setHiddenCombinationTrue(ArrayList<Integer> combi, boolean isAleatoire) {
         if (isAleatoire) {
             this.hiddenCombination = generation_combinaison(nbSlot, true) ;
         } else {
             this.hiddenCombination = creation_table_utilisateur(nbSlot);
         }
     }
-    public void setCurrentCombination (ArrayList<Integer> combi) {
-        this.currentCombination = combi;
-    }
-    public void setIsResolved (boolean isIt) {
-        this.isResolved = isIt;
-    }
-    
-    // méthodes
-    public String affCombiInt (ArrayList<Integer> tab) {
+
+	public ArrayList<Integer> getCurrentCombination() {
+		return currentCombination;
+	}
+
+	public void setCurrentCombination(ArrayList<Integer> currentCombination) {
+		this.currentCombination = currentCombination;
+	}
+
+	public int[] getTentatives() {
+		return tentatives;
+	}
+
+	public void setTentatives(int[] tentatives) {
+		this.tentatives = tentatives;
+	}
+
+	public boolean isResolved() {
+		return isResolved;
+	}
+
+	public void setResolved(boolean isResolved) {
+		this.isResolved = isResolved;
+	}
+	
+	// Méthodes
+
+	public String affCombiInt (ArrayList<Integer> tab) {
         String s = "[";
         for (int i = 0; i < tab.size() - 1; i ++) {
             s += String.valueOf(tab.get(i) + ", ");
