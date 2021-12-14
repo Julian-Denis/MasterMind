@@ -184,15 +184,15 @@ public class GameBoard {
         int positionCounter = 0;
         int[] arrInfo = new int[2];
         if (combi_un.size() == combi_deux.size()) {
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j ++) {
+            for (int i = 0; i < combi_un.size(); i++) {
+                for (int j = 0; j < combi_un.size(); j ++) {
                     if (combi_un.get(i) == combi_deux.get(j)) {
                         presenceCounter += 1;
                         break;
                     }
                 }
             }
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < combi_un.size(); i++) {
                 if (combi_un.get(i) == combi_deux.get(i)) {
                     positionCounter += 1;
                 }

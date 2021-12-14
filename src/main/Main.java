@@ -44,7 +44,6 @@ public class Main {
             isUnique = input.nextInt();
 
             if (isUnique == 0) {
-                System.out.println("les pions sont générés aléatoirement...");
                 gameBoardOne.setHiddenCombination(GameBoard.generation_combinaison(gameBoardOne.getNbSlot(), false)); // bug
                 System.out.println("les pions sont générés aléatoirement...");
             } else if (isUnique == 1) {
@@ -61,13 +60,13 @@ public class Main {
                 System.out.println("Entrez votre selection de pions :");
                 gameBoardOne.setCurrentCombination(GameBoard.creation_table_utilisateur(nbPawn));
                 tableResult = GameBoard.comparaison_combinaison(gameBoardOne.getHiddenCombination(), gameBoardOne.getCurrentCombination());
-                if (tableResult[0] == 4) {
+                if (tableResult[0] == gameBoardOne.getHiddenCombination().size()) {
                     gameBoardOne.setResolved(true);
                 } else {
                     System.out.println(
                         "Vous avez " + 
-                        tableResult[0] + " pions bien positionnés et de bonne couleur " + //bug ?
-                        tableResult[1] + " pions de bonne couleur mais mal placés." // bug ?
+                        tableResult[0] + " pions bien positionnés et de bonne couleur " + // bug ?
+                        tableResult[1] + " pions de bonne couleur mais mal placés."
                     );
                 }
             }
